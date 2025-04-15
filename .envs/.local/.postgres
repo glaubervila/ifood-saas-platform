@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=ifood_saas
+POSTGRES_USER=AQQAivRexYyZAcpJFkWpOcuBiKBkKwyP
+POSTGRES_PASSWORD=0JSY2HitWu4pi599kijyjxVOcAwfSivQlTMH8in3tEvcVpmdV5Y7gEIkmsTWuVH3

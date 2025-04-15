@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+echo "Running Migrate to apply changes in database"
+python manage.py migrate
+
+echo "Running Collect Statics"
+python manage.py collectstatic --clear --noinput --verbosity 0
+
+exec uvicorn config.asgi:application --host 0.0.0.0 --reload --reload-include '*.html'

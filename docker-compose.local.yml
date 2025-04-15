@@ -1,0 +1,90 @@
+volumes:
+  ifood_saas_local_postgres_data: {}
+  ifood_saas_local_postgres_data_backups: {}
+  ifood_saas_local_redis_data: {}
+
+services:
+  backend: &django
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    # image: ifood_saas_local_django
+    # container_name: ifood_saas_local_django
+    depends_on:
+      - postgres
+      - redis
+      - mailpit
+    volumes:
+      - ..:/workspaces
+      - ./backend:/app:z
+    env_file:
+      - .envs/.local/.django
+      - .envs/.local/.postgres
+    ports:
+      - '8000:8000'
+    command: /start
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    # image: ifood_saas_production_postgres
+    # container_name: ifood_saas_local_postgres
+    volumes:
+      - ifood_saas_local_postgres_data:/var/lib/postgresql/data
+      - ifood_saas_local_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.local/.postgres
+
+  mailpit:
+    image: docker.io/axllent/mailpit:latest
+    # container_name: ifood_saas_local_mailpit
+    ports:
+      - "8025:8025"
+
+  redis:
+    image: docker.io/redis:6
+    # container_name: ifood_saas_local_redis
+    volumes:
+      - ifood_saas_local_redis_data:/data
+
+  celeryworker:
+    <<: *django
+    # image: ifood_saas_local_celeryworker
+    # container_name: ifood_saas_local_celeryworker
+    depends_on:
+      - redis
+      - postgres
+      - mailpit
+    ports: []
+    command: /start-celeryworker
+
+  celerybeat:
+    <<: *django
+    # image: ifood_saas_local_celerybeat
+    # container_name: ifood_saas_local_celerybeat
+    depends_on:
+      - redis
+      - postgres
+      - mailpit
+    ports: []
+    command: /start-celerybeat
+
+  flower:
+    <<: *django
+    # image: ifood_saas_local_flower
+    # container_name: ifood_saas_local_flower
+    ports:
+      - '5555:5555'
+    command: /start-flower
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./compose/local/nginx/Dockerfile
+    ports:
+      - 80:80
+    depends_on:
+      - backend
+    # volumes:
+    #   - production_django_media:/usr/share/nginx/media:ro

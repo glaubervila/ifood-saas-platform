@@ -1,0 +1,18 @@
+# General
+# ------------------------------------------------------------------------------
+USE_DOCKER=yes
+IPYTHONDIR=/app/.ipython
+
+DJANGO_DEBUG=True
+DATABASE_URL=postgres://AQQAivRexYyZAcpJFkWpOcuBiKBkKwyP:0JSY2HitWu4pi599kijyjxVOcAwfSivQlTMH8in3tEvcVpmdV5Y7gEIkmsTWuVH3@postgres:5432/ifood_saas
+
+# Redis
+# ------------------------------------------------------------------------------
+REDIS_URL=redis://redis:6379/0
+
+# Celery
+# ------------------------------------------------------------------------------
+
+# Flower
+CELERY_FLOWER_USER=hbPVQSALysRFpkVfNfIFPVsavCzuPDTo
+CELERY_FLOWER_PASSWORD=Hx2UiyHFrWiu8pwvhuoZZH3xu2ZJy8dkQk2N58rrRzQdpxqUZjzoTOasrt5jevRQ
