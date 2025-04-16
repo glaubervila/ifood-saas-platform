@@ -51,12 +51,12 @@
                 "mrmlnc.vscode-duplicate",
                 "visualstudioexptteam.vscodeintellicode",
                 "visualstudioexptteam.intellicode-api-usage-examples",
-                // python
                 "ms-python.python",
                 "ms-python.vscode-pylance",
                 "charliermarsh.ruff",
-                // django
-                "batisteo.vscode-django"
+                "batisteo.vscode-django",
+                "eamodio.gitlens",
+                "ms-python.isort"
             ]
         }
     },
