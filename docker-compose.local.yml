@@ -30,6 +30,8 @@ services:
       dockerfile: ./compose/production/postgres/Dockerfile
     # image: ifood_saas_production_postgres
     # container_name: ifood_saas_local_postgres
+    ports:
+      - '5432:5432'
     volumes:
       - ifood_saas_local_postgres_data:/var/lib/postgresql/data
       - ifood_saas_local_postgres_data_backups:/backups

@@ -1,3 +1,2 @@
 # ruff: noqa: F401
-
-from .customer import Customer
+from ifood_saas.customers.models.customer import Customer

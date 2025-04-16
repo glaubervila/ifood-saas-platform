@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from ifood_saas.customers.models.customer import Customer
+from ifood_saas.customers.models import Customer
 
 
 @admin.register(Customer)

@@ -6,6 +6,11 @@ IPYTHONDIR=/app/.ipython
 DJANGO_DEBUG=True
 DATABASE_URL=postgres://AQQAivRexYyZAcpJFkWpOcuBiKBkKwyP:0JSY2HitWu4pi599kijyjxVOcAwfSivQlTMH8in3tEvcVpmdV5Y7gEIkmsTWuVH3@postgres:5432/ifood_saas
 
+# Chave de criptografia para as credencias.
+# from cryptography.fernet import Fernet
+# print(Fernet.generate_key().decode())
+FERNET_KEY=VHZxYtksuDxcLhNLIPGJKvzoUhW1D_xRazvtiYLMfO8=
+
 # Redis
 # ------------------------------------------------------------------------------
 REDIS_URL=redis://redis:6379/0
