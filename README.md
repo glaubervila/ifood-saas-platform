@@ -4,7 +4,7 @@ Plataforma SaaS de integração com a API do iFood, desenvolvida com Python e Dj
 
 Este projeto tem como objetivo oferecer uma solução multi-tenant para restaurantes que desejam acessar, organizar e analisar seus dados de vendas e pedidos diretamente da API do iFood. A aplicação coleta, armazena e organiza os dados em uma base unificada, permitindo análises em tempo real por meio de dashboards personalizados no Power BI.
 
-🚀 Funcionalidades
+Funcionalidades
 - Autenticação e sincronização com a API do iFood
 
 - Suporte multi-restaurante (multi-tenant)
@@ -17,7 +17,7 @@ Este projeto tem como objetivo oferecer uma solução multi-tenant para restaura
 
 - Design preparado para escalabilidade e modularidade
 
-🧰 Tecnologias utilizadas
+Tecnologias utilizadas
 - Python 3.x
 
 - Django 4.x
