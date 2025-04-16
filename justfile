@@ -19,7 +19,12 @@ up:
     @echo "Starting up containers..."
     @docker compose up -d --remove-orphans
 
-# down: Stop containers.
+# stop: Stop containers.
+stop:
+    @echo "Stopping containers..."
+    @docker compose stop
+
+# down: Stop and Remove containers.
 down:
     @echo "Stopping containers..."
     @docker compose down

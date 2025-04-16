@@ -1,7 +1,15 @@
 from django import forms
 from django.contrib import admin
 
+from ifood_saas.customers.models import Customer
 from ifood_saas.merchants.models import Merchant
+from ifood_saas.merchants.models.merchant_access import MerchantAccess
+
+
+class MerchantAccessInline(admin.TabularInline):
+    model = MerchantAccess
+    extra = 1
+    autocomplete_fields = ["user"]
 
 
 class MerchantAdminForm(forms.ModelForm):
@@ -39,6 +47,7 @@ class MerchantAdminForm(forms.ModelForm):
 @admin.register(Merchant)
 class MerchantAdmin(admin.ModelAdmin):
     form = MerchantAdminForm
+    inlines = [MerchantAccessInline]
     list_display = (
         "id",
         "merchant_id",
@@ -52,3 +61,33 @@ class MerchantAdmin(admin.ModelAdmin):
     search_fields = ("name", "corporate_name")
     list_filter = ("registered_at",)
     ordering = ("-registered_at",)
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(user_access__user=request.user)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "customer" and not request.user.is_superuser:
+            kwargs["queryset"] = Customer.objects.filter(pk=request.user.customer_id)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+
+@admin.register(MerchantAccess)
+class MerchantAccessAdmin(admin.ModelAdmin):
+    list_display = ("user", "merchant", "get_customer")
+    search_fields = ("user__username", "merchant__name", "merchant__corporate_name")
+    list_filter = ("merchant__customer",)
+
+    @admin.display(
+        description="Customer",
+    )
+    def get_customer(self, obj):
+        return obj.merchant.customer
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(merchant__customer_id=request.user.customer_id)
